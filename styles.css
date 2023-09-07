@@ -50,11 +50,9 @@ h1 {
   font-weight: bold;
   font-size: 3rem;
 }
-.text {
+p {
   position: fixed;
   bottom: 80px;
   text-align: center;
   width: 100%;
-  font-weight: bold;
-  font-size: 3rem;
 }
