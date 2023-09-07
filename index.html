@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>С днём рожденья!</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <!-- prettier-ignore -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg%20viewBox='0%200%2064%2064'%20font-size='36'%20font-family='Arial'%20font-weight='400'%20xmlns='http://www.w3.org/2000/svg'%3E%3Crect%20width='64'%20height='64'%20rx='12'%20fill='peru'/%3E%3Ctext%20y='44'%20x='2'%20textLength='60'%20lengthAdjust='spacingAndGlyphs'%20fill='black'%3ENas%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <audio autoplay="autoplay" loop="loop">
+      <source src="./assets/music.mp3" type="audio/mpeg" />
+    </audio>
+    <h1>С днём рожденья</h1>
+    <canvas class="canvas"></canvas>
+    <p class="text" id="span_dt_dt"></p>
+    <script language="javascript">
+      function show_date_time() {
+        // window.setTimeout("show_date_time()", 1000);
+        BirthDay = new Date("07/03/1992 00:00:00");
+        today = new Date();
+        timeold = today.getTime() - BirthDay.getTime();
+        sectimeold = timeold / 1000;
+        secondsold = Math.floor(sectimeold);
+        msPerDay = 24 * 60 * 60 * 1000;
+        e_daysold = timeold / msPerDay;
+        daysold = Math.floor(e_daysold);
+        e_hrsold = (e_daysold - daysold) * 24;
+        hrsold = Math.floor(e_hrsold);
+        e_minsold = (e_hrsold - hrsold) * 60;
+        minsold = Math.floor((e_hrsold - hrsold) * 60);
+        seconds = Math.floor((e_minsold - minsold) * 60);
+        span_dt_dt.innerHTML = daysold + " дней";
+      }
+      show_date_time();
+    </script>
+    <script src="./script.js"></script>
+  </body>
+</html>
