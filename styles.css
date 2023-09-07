@@ -38,21 +38,17 @@ body {
     rgb(55, 148, 192) 120%
   );
 }
-.canvas {
-  margin: 0 auto;
-  display: block;
-}
 h1 {
   position: fixed;
-  top: 80px;
+  top: 10%;
   text-align: center;
   width: 100%;
   font-weight: bold;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 p {
   position: fixed;
-  bottom: 80px;
+  bottom: 10%;
   text-align: center;
   width: 100%;
 }

@@ -2,7 +2,7 @@ const S = {
   init: function () {
     S.Drawing.init(".canvas");
     document.body.classList.add("body--ready");
-    S.UI.simulate("#countdown 3|#rectangle 15x15|Настя");
+    S.UI.simulate("#countdown 3|Настя");
     S.Drawing.loop(function () {
       S.Shape.render();
     });
@@ -13,6 +13,7 @@ S.Drawing = (function () {
   let canvas,
     context,
     renderFn,
+    ready,
     requestFrame =
       window.requestAnimationFrame ||
       window.webkitRequestAnimationFrame ||
@@ -39,8 +40,10 @@ S.Drawing = (function () {
       requestFrame.call(window, this.loop.bind(this));
     },
     adjustCanvas: function () {
-      canvas.width = window.innerWidth - 100;
+      canvas.width = window.innerWidth - 30;
       canvas.height = window.innerHeight - 30;
+      if (ready) S.UI.simulate("Настя");
+      ready = true;
     },
     clearFrame: function () {
       context.clearRect(0, 0, canvas.width, canvas.height);
@@ -65,19 +68,23 @@ S.UI = (function () {
     maxShapeSize = 30,
     sequence = [],
     cmd = "#";
+
   function formatTime(date) {
     var h = date.getHours(),
       m = date.getMinutes(),
       m = m < 10 ? "0" + m : m;
     return h + ":" + m;
   }
+
   function getValue(value) {
     return value && value.split(" ")[1];
   }
+
   function getAction(value) {
     value = value && value.split(" ")[0];
     return value && value[0] === cmd && value.substring(1);
   }
+
   function timedAction(fn, delay, max, reverse) {
     clearInterval(interval);
     currentAction = reverse ? max : 1;
@@ -99,6 +106,7 @@ S.UI = (function () {
       }, delay);
     }
   }
+
   function performAction(value) {
     var action, value, current;
     sequence =
@@ -177,6 +185,7 @@ S.UI = (function () {
     },
   };
 })();
+
 S.Point = function (args) {
   this.x = args.x;
   this.y = args.y;
@@ -184,17 +193,20 @@ S.Point = function (args) {
   this.a = args.a;
   this.h = args.h;
 };
+
 S.Color = function (r, g, b, a) {
   this.r = r;
   this.g = g;
   this.b = b;
   this.a = a;
 };
+
 S.Color.prototype = {
   render: function () {
     return "rgba(" + this.r + "," + +this.g + "," + this.b + "," + this.a + ")";
   },
 };
+
 S.Dot = function (x, y) {
   this.p = new S.Point({
     x: x,
@@ -209,6 +221,7 @@ S.Dot = function (x, y) {
   this.t = this.clone();
   this.q = [];
 };
+
 S.Dot.prototype = {
   clone: function () {
     return new S.Point({
@@ -290,6 +303,7 @@ S.Dot.prototype = {
     this._draw();
   },
 };
+
 S.ShapeBuilder = (function () {
   var gap = 13,
     shapeCanvas = document.createElement("canvas"),
@@ -350,6 +364,7 @@ S.ShapeBuilder = (function () {
     fit();
     window.addEventListener("resize", fit);
   }
+
   // Init
   init();
   return {
@@ -408,6 +423,7 @@ S.ShapeBuilder = (function () {
     },
   };
 })();
+
 S.Shape = (function () {
   var dots = [],
     width = 0,
@@ -507,4 +523,5 @@ S.Shape = (function () {
     },
   };
 })();
+
 S.init();
